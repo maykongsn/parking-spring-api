@@ -1,0 +1,7 @@
+CREATE TABLE CAR(
+    id VARCHAR PRIMARY KEY,
+    license_plate VARCHAR(7) NOT NULL UNIQUE,
+    brand VARCHAR(70) NOT NULL,
+    model VARCHAR(70) NOT NULL,
+    color VARCHAR(70) NOT NULL
+);
