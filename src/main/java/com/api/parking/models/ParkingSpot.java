@@ -1,5 +1,7 @@
 package com.api.parking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -27,7 +29,8 @@ public class ParkingSpot implements Serializable {
     @Column(nullable = false, length = 30)
     private String block;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinTable(name = "car_spot", joinColumns = @JoinColumn(name = "parking_spot_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id"))
     private Car car;
