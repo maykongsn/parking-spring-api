@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,6 +29,18 @@ public class ParkingSpotController {
 
     @PostMapping
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid CarSpotDto carSpotDto) {
+        if(carService.existsByLicensePlate(carSpotDto.getLicensePlate())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate is already in use!");
+        }
+
+        if(parkingSpotService.existsByParkingSpot(carSpotDto.getParkingSpot())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
+        }
+
+        if(parkingSpotService.existsByApartmentAndBlock(carSpotDto.getApartment(), carSpotDto.getBlock())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registed for this apartment/block");
+        }
+
         var parkingSpot = new ParkingSpot();
         var car = new Car();
         BeanUtils.copyProperties(carSpotDto, parkingSpot);
@@ -35,10 +48,14 @@ public class ParkingSpotController {
 
         parkingSpot.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         parkingSpot.setCar(car);
-        car.setParkingSpot(parkingSpot);
 
         parkingSpotService.save(parkingSpot);
         carService.save(car);
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpot);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ParkingSpot>> getAllParkingSpots() {
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll());
     }
 }

@@ -30,9 +30,9 @@ public class ParkingSpot implements Serializable {
     private String block;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "car_spot", joinColumns = @JoinColumn(name = "parking_spot_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "car_spot", joinColumns = @JoinColumn(name = "parking_spot_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"))
     private Car car;
 
     public UUID getId() {

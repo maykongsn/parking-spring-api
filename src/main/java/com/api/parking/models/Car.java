@@ -22,9 +22,6 @@ public class Car implements Serializable {
     @Column(nullable = false, length = 70)
     private String color;
 
-    @OneToOne(mappedBy = "car")
-    private ParkingSpot parkingSpot;
-
     public UUID getId() {
         return id;
     }
@@ -63,13 +60,5 @@ public class Car implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public ParkingSpot getParkingSpot() {
-        return parkingSpot;
-    }
-
-    public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
     }
 }

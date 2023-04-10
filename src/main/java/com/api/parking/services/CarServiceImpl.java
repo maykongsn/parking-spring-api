@@ -18,4 +18,9 @@ public class CarServiceImpl implements CarService {
     public Car save(Car car) {
         return carRepository.save(car);
     }
+
+    @Override
+    public boolean existsByLicensePlate(String licensePlate) {
+        return carRepository.existsByLicensePlate(licensePlate);
+    }
 }
