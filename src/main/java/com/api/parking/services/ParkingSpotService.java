@@ -10,5 +10,5 @@ public interface ParkingSpotService {
     ParkingSpot save(ParkingSpot parkingSpot);
     boolean existsByParkingSpot(String parkingSpot);
     boolean existsByApartmentAndBlock(String apartment, String block);
-    List<ParkingSpot> findAll();
+    List<ParkingSpot> findAllWithCar();
 }

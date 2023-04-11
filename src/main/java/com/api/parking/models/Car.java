@@ -1,5 +1,7 @@
 package com.api.parking.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
@@ -21,6 +23,10 @@ public class Car implements Serializable {
 
     @Column(nullable = false, length = 70)
     private String color;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "car", fetch = FetchType.LAZY)
+    private ParkingSpot parkingSpot;
 
     public UUID getId() {
         return id;
@@ -60,5 +66,13 @@ public class Car implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public ParkingSpot getParkingSpot() {
+        return parkingSpot;
+    }
+
+    public void setParkingSpot(ParkingSpot parkingSpot) {
+        this.parkingSpot = parkingSpot;
     }
 }

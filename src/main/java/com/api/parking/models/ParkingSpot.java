@@ -1,6 +1,6 @@
 package com.api.parking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-
 public class ParkingSpot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +28,9 @@ public class ParkingSpot implements Serializable {
     @Column(nullable = false, length = 30)
     private String block;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "car_spot", joinColumns = @JoinColumn(name = "parking_spot_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"))
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
     public UUID getId() {

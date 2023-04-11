@@ -32,7 +32,7 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     }
 
     @Override
-    public List<ParkingSpot> findAll() {
-        return parkingSpotRepository.findAll();
+    public List<ParkingSpot> findAllWithCar() {
+        return parkingSpotRepository.findAllWithCar();
     }
 }
