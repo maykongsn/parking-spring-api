@@ -2,10 +2,11 @@ package com.api.parking.services;
 
 import com.api.parking.models.ParkingSpot;
 import com.api.parking.repositories.ParkingSpotRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,8 +35,8 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     }
 
     @Override
-    public List<ParkingSpot> findAllWithCar() {
-        return parkingSpotRepository.findAllWithCar();
+    public Page<ParkingSpot> findAll(Pageable pageable) {
+        return parkingSpotRepository.findAll(pageable);
     }
 
     @Override
