@@ -42,4 +42,10 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     public Optional<ParkingSpot> findById(UUID id) {
         return parkingSpotRepository.findById(id);
     }
+
+    @Override
+    @Transactional
+    public void delete(ParkingSpot parkingSpot) {
+        parkingSpotRepository.delete(parkingSpot);
+    }
 }
