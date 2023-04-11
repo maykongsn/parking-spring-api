@@ -25,7 +25,7 @@ public class Car implements Serializable {
     private String color;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "car", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "car")
     private ParkingSpot parkingSpot;
 
     public UUID getId() {

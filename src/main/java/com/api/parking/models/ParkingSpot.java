@@ -29,7 +29,7 @@ public class ParkingSpot implements Serializable {
     private String block;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
